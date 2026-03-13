@@ -1,0 +1,21 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+*.egg-info/
+dist/
+build/
+.env
+# Raw match data (large, can be regenerated)
+data/matches_*.json
+data/match_umpire_data.json
+data/match_umpire_data_backup.json
+data/current_fixtures.json
+data/umpire_profiles.json
+
+# Keep these committed for deployment:
+# data/round_analysis.json
+# data/appointments.json
+# data/umpire_profiles_3yr.json
+# data/umpire_profiles_5yr.json
+# data/umpire_profiles_10yr.json

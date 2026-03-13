@@ -1,0 +1,210 @@
+[
+  {
+    "date": "Thursday, March 12, 2026",
+    "home_team": "Carlton",
+    "away_team": "Richmond",
+    "venue": "MCG",
+    "time": "7:30pm Local",
+    "field_umpires": [
+      "John Howorth",
+      "Nathan Toner",
+      "Jacob Mollison",
+      "Andrew Adair"
+    ],
+    "boundary_umpires": [
+      "Simon Blight",
+      "Ian Burrows",
+      "Blake Anderson",
+      "Damien Main"
+    ],
+    "goal_umpires": [
+      "David Rodan",
+      "Steven Piperno"
+    ]
+  },
+  {
+    "date": "Friday, March 13, 2026",
+    "home_team": "Essendon",
+    "away_team": "Hawthorn",
+    "venue": "MCG",
+    "time": "7:40pm Local",
+    "field_umpires": [
+      "Daniel Johanson",
+      "Brendan Hosking",
+      "Simon Meredith",
+      "Martin Rodger"
+    ],
+    "boundary_umpires": [
+      "Ben MacDonald",
+      "Sam Stagg",
+      "Joshua Furman",
+      "Matthew Jenkinson"
+    ],
+    "goal_umpires": [
+      "Dylan Benwell",
+      "Matthew Dervan"
+    ]
+  },
+  {
+    "date": "Saturday, March 14, 2026",
+    "home_team": "Western Bulldogs",
+    "away_team": "Greater Western Sydney",
+    "venue": "Marvel Stadium",
+    "time": "1:15pm Local",
+    "field_umpires": [
+      "Alex Whetton",
+      "Craig Fleer",
+      "Brent Wallace",
+      "Peter Bailes"
+    ],
+    "boundary_umpires": [
+      "Lachlan Menara",
+      "Lachlan Rayner",
+      "Zachary Mousaco",
+      "Patrick Dineen"
+    ],
+    "goal_umpires": [
+      "Sam Walsh",
+      "Matt Maclure"
+    ]
+  },
+  {
+    "date": "Saturday, March 14, 2026",
+    "home_team": "Geelong",
+    "away_team": "Fremantle",
+    "venue": "GMHBA Stadium",
+    "time": "4:15pm Local",
+    "field_umpires": [
+      "Brett Rosebury",
+      "Robert O'Gorman",
+      "Nicholas Brown",
+      "Jamie Broadbent"
+    ],
+    "boundary_umpires": [
+      "Matthew Konetschka",
+      "Ben Williams",
+      "Adrian Pretorius",
+      "Anthony Laughton"
+    ],
+    "goal_umpires": [
+      "Stephen Williams",
+      "Adam Wojcik"
+    ]
+  },
+  {
+    "date": "Saturday, March 14, 2026",
+    "home_team": "Sydney",
+    "away_team": "Brisbane Lions",
+    "venue": "SCG",
+    "time": "7:10pm Local",
+    "field_umpires": [
+      "Nick Foot",
+      "Cameron Jones",
+      "Curtis Deboy",
+      "Cameron Dore"
+    ],
+    "boundary_umpires": [
+      "Michael Barlow",
+      "Benjamin Fely",
+      "Nick Swanson",
+      "Michael Baker"
+    ],
+    "goal_umpires": [
+      "Angus McKenzie-Wills",
+      "Alex Chisholm"
+    ]
+  },
+  {
+    "date": "Saturday, March 14, 2026",
+    "home_team": "Collingwood",
+    "away_team": "Adelaide",
+    "venue": "MCG",
+    "time": "7:35pm Local",
+    "field_umpires": [
+      "Justin Power",
+      "Andrew Stephens",
+      "Hayden Meyer",
+      "Nathan Williamson"
+    ],
+    "boundary_umpires": [
+      "Jordan Russell",
+      "Matthew Tomkins",
+      "Kieran Ferguson",
+      "Nathan Doig"
+    ],
+    "goal_umpires": [
+      "Michael Craig",
+      "Simon Plumridge"
+    ]
+  },
+  {
+    "date": "Sunday, March 15, 2026",
+    "home_team": "North Melbourne",
+    "away_team": "Port Adelaide",
+    "venue": "Marvel Stadium",
+    "time": "1:10pm Local",
+    "field_umpires": [
+      "Mathew Nicholls",
+      "Tom Bryce",
+      "Joel Clamp",
+      "Eleni Tee"
+    ],
+    "boundary_umpires": [
+      "John Cooper",
+      "Nicholas Phillips",
+      "Harrison Bell",
+      "Adam Coote"
+    ],
+    "goal_umpires": [
+      "Braden Ford",
+      "Brodie Kenny-Bell"
+    ]
+  },
+  {
+    "date": "Sunday, March 15, 2026",
+    "home_team": "Melbourne",
+    "away_team": "St Kilda",
+    "venue": "MCG",
+    "time": "3:15pm Local",
+    "field_umpires": [
+      "Nicholas Jankovskis",
+      "Matt Stevic",
+      "Andrew Heffernan",
+      "Harrison Birch"
+    ],
+    "boundary_umpires": [
+      "Sean Moylan",
+      "Josh Garrett",
+      "Jaco Jansen van Rensburg",
+      "Chris Esler"
+    ],
+    "goal_umpires": [
+      "Luke Monea",
+      "Callum Leonard"
+    ]
+  },
+  {
+    "date": "Sunday, March 15, 2026",
+    "home_team": "Gold Coast",
+    "away_team": "West Coast",
+    "venue": "People First Stadium",
+    "time": "5:10pm Local",
+    "field_umpires": [
+      "Leigh Fisher",
+      "Paul Rebeschini",
+      "Jordan Fry",
+      "Joseph O'Brien"
+    ],
+    "boundary_umpires": [
+      "Chris Delany",
+      "Adam Reardon",
+      "Ty Duncan",
+      "Will Morris"
+    ],
+    "goal_umpires": [
+      "Matthew Bridges",
+      "Tom Sullivan",
+      "2026 AFL - ROUND 1 - MATCH OFFICIAL APPOINTMENTS"
+    ]
+  }
+]

@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AFL Umpire Free Kick Tracker</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #0f1117;
+  --card-bg: #1a1d27;
+  --card-hover: #22263a;
+  --surface: #252936;
+  --text: #e4e6ef;
+  --text-muted: #8b8fa3;
+  --text-dim: #5c6078;
+  --green: #34d399;
+  --red: #f87171;
+  --amber: #fbbf24;
+  --border: #2e3348;
+  --radius: 14px;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+/* ── Header ── */
+header {
+  text-align: center;
+  padding: 40px 16px 24px;
+}
+header h1 {
+  font-size: clamp(1.5rem, 5vw, 2rem);
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  background: linear-gradient(135deg, #60a5fa, #a78bfa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+header .subtitle {
+  color: var(--text-muted);
+  font-size: 1rem;
+  margin-top: 4px;
+}
+
+/* ── Day group ── */
+.day-header {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin: 28px 0 12px;
+  padding-left: 4px;
+}
+
+/* ── Fixture Card ── */
+.fixture-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 12px;
+  overflow: hidden;
+  transition: border-color 0.2s;
+  cursor: pointer;
+}
+.fixture-card:hover {
+  border-color: #444a6b;
+}
+.fixture-card.expanded {
+  cursor: default;
+}
+
+.fixture-header {
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  position: relative;
+  cursor: pointer;
+}
+
+.team-matchup {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  min-width: 0;
+}
+
+.team-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  font-weight: 800;
+  font-size: 0.7rem;
+  flex-shrink: 0;
+  letter-spacing: 0.5px;
+}
+
+.team-name {
+  font-weight: 700;
+  font-size: clamp(0.85rem, 3vw, 1rem);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.vs-label {
+  color: var(--text-dim);
+  font-size: 0.75rem;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.fixture-meta {
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  text-align: right;
+  flex-shrink: 0;
+  line-height: 1.4;
+}
+
+.chevron {
+  color: var(--text-dim);
+  font-size: 0.9rem;
+  transition: transform 0.3s;
+  flex-shrink: 0;
+}
+.fixture-card.expanded .chevron {
+  transform: rotate(180deg);
+}
+
+/* ── Expanded Detail ── */
+.fixture-detail {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+}
+.fixture-card.expanded .fixture-detail {
+  max-height: 2000px;
+}
+
+.detail-inner {
+  padding: 0 20px 20px;
+}
+
+/* ── Umpire Section ── */
+.section-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: var(--text-dim);
+  margin: 16px 0 10px;
+}
+
+/* ── Umpire Cards (mobile-first) ── */
+.umpire-card {
+  background: var(--surface);
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin-bottom: 8px;
+}
+
+.umpire-name-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.umpire-name {
+  font-weight: 700;
+  font-size: 0.92rem;
+}
+.umpire-games {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+.badge {
+  display: inline-block;
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-left: 6px;
+}
+.badge-warn {
+  background: rgba(251, 191, 36, 0.15);
+  color: var(--amber);
+}
+.badge-new {
+  background: rgba(96, 165, 250, 0.15);
+  color: #60a5fa;
+}
+
+.team-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.team-stat-block {
+  background: rgba(0,0,0,0.2);
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+.team-stat-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.82rem;
+  margin-bottom: 2px;
+}
+.stat-label { color: var(--text-muted); }
+.stat-value { font-weight: 600; font-variant-numeric: tabular-nums; }
+
+.diff-row {
+  margin-top: 6px;
+  padding-top: 6px;
+  border-top: 1px solid var(--border);
+}
+.diff-row-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.diff-row-gauge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.diff-value {
+  font-weight: 800;
+  font-size: 0.82rem;
+  font-variant-numeric: tabular-nums;
+}
+.diff-bar-wrap {
+  flex: 1;
+  height: 6px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.diff-bar {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.5s ease;
+}
+.gauge-wrap {
+  position: relative;
+  width: 100px;
+  height: 56px;
+  overflow: hidden;
+}
+.gauge-wrap svg { display: block; }
+.no-history {
+  color: var(--text-dim);
+  font-size: 0.82rem;
+  font-style: italic;
+  padding: 10px 0;
+  text-align: center;
+}
+
+/* ── Crew Summary ── */
+.crew-summary {
+  background: var(--surface);
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin-top: 12px;
+  border: 1px solid var(--border);
+}
+.crew-summary .gauge-wrap {
+  width: 120px;
+  height: 68px;
+}
+.crew-summary .diff-value {
+  font-size: 1.05rem;
+  font-weight: 800;
+  margin-top: 2px;
+}
+
+/* ── Likert Scale ── */
+.likert {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+}
+.likert-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-dim);
+  text-align: center;
+  margin-bottom: 10px;
+}
+.likert-bar-outer {
+  position: relative;
+  height: 32px;
+  background: linear-gradient(to right,
+    rgba(248,113,113,0.15) 0%,
+    rgba(248,113,113,0.05) 40%,
+    rgba(255,255,255,0.03) 50%,
+    rgba(52,211,153,0.05) 60%,
+    rgba(52,211,153,0.15) 100%);
+  border-radius: 16px;
+  overflow: visible;
+  display: flex;
+  align-items: center;
+}
+.likert-center {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--text-dim);
+  opacity: 0.3;
+}
+.likert-marker {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 0.65rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+  transition: left 0.6s ease;
+  z-index: 2;
+}
+.likert-team-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 6px;
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+.likert-net {
+  text-align: center;
+  margin-top: 8px;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+.likert-net strong {
+  color: var(--text);
+  font-weight: 700;
+}
+.crew-summary .umpire-name {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+/* ── Other umpires ── */
+.other-umpires {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  margin-top: 4px;
+}
+
+/* ── Methodology ── */
+.methodology {
+  margin-top: 16px;
+  padding: 14px 16px;
+  background: rgba(96, 165, 250, 0.06);
+  border-radius: 10px;
+  border: 1px solid rgba(96, 165, 250, 0.12);
+}
+.methodology summary {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #60a5fa;
+  cursor: pointer;
+  list-style: none;
+}
+.methodology summary::before {
+  content: "i";
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 1.5px solid #60a5fa;
+  font-size: 0.65rem;
+  margin-right: 6px;
+  vertical-align: -1px;
+}
+.methodology p {
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  margin-top: 8px;
+  line-height: 1.6;
+}
+
+/* ── Footer ── */
+footer {
+  text-align: center;
+  padding: 32px 16px;
+  color: var(--text-dim);
+  font-size: 0.75rem;
+  line-height: 1.6;
+}
+footer a { color: #60a5fa; text-decoration: none; }
+footer a:hover { text-decoration: underline; }
+
+/* ── Loading / Error ── */
+.loading {
+  text-align: center;
+  padding: 60px 16px;
+  color: var(--text-muted);
+}
+.spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid var(--border);
+  border-top-color: #60a5fa;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 0 auto 16px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.error-msg {
+  text-align: center;
+  padding: 40px 16px;
+  color: var(--red);
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>AFL Umpire Tracker</h1>
+  <div class="subtitle" id="roundInfo">Loading fixtures...</div>
+</header>
+
+<div class="container" id="app">
+  <div class="loading">
+    <div class="spinner"></div>
+    Fetching round data...
+  </div>
+</div>
+
+<footer>
+  Data from <a href="https://afltables.com" target="_blank">AFL Tables</a>
+  and <a href="https://api.squiggle.com.au" target="_blank">Squiggle API</a>.
+  Umpire appointments from <a href="https://aflua.com.au" target="_blank">AFLUA</a>.<br>
+  Figures are crew-averaged estimates. Not affiliated with the AFL.
+</footer>
+
+<script>
+// ── Team Colours ──
+const TEAMS = {
+  "Adelaide":         { primary:"#002B5C", secondary:"#FFD200", abbr:"ADE" },
+  "Brisbane Lions":   { primary:"#7B0042", secondary:"#FFB81C", abbr:"BRL" },
+  "Carlton":          { primary:"#001F3F", secondary:"#FFFFFF", abbr:"CAR" },
+  "Collingwood":      { primary:"#000000", secondary:"#FFFFFF", abbr:"COL" },
+  "Essendon":         { primary:"#CC0000", secondary:"#000000", abbr:"ESS" },
+  "Fremantle":        { primary:"#2A0D45", secondary:"#FFFFFF", abbr:"FRE" },
+  "Geelong":          { primary:"#001F3F", secondary:"#FFFFFF", abbr:"GEE" },
+  "Gold Coast":       { primary:"#D63239", secondary:"#FFD200", abbr:"GCS" },
+  "Greater Western Sydney": { primary:"#F47920", secondary:"#333333", abbr:"GWS" },
+  "Hawthorn":         { primary:"#4D2004", secondary:"#FFB81C", abbr:"HAW" },
+  "Melbourne":        { primary:"#0F1131", secondary:"#CC0000", abbr:"MEL" },
+  "North Melbourne":  { primary:"#003D8E", secondary:"#FFFFFF", abbr:"NTH" },
+  "Port Adelaide":    { primary:"#008AAB", secondary:"#000000", abbr:"PTA" },
+  "Richmond":         { primary:"#FED102", secondary:"#000000", abbr:"RIC" },
+  "St Kilda":         { primary:"#ED1C24", secondary:"#000000", abbr:"STK" },
+  "Sydney":           { primary:"#ED171F", secondary:"#FFFFFF", abbr:"SYD" },
+  "West Coast":       { primary:"#002B5C", secondary:"#F2A900", abbr:"WCE" },
+  "Western Bulldogs": { primary:"#014896", secondary:"#CE1126", abbr:"WBD" },
+};
+
+function teamInfo(name) {
+  return TEAMS[name] || { primary:"#444", secondary:"#888", abbr: name.slice(0,3).toUpperCase() };
+}
+
+// ── Formatting ──
+function formatDiff(v) {
+  if (v == null) return "--";
+  return (v >= 0 ? "+" : "") + v.toFixed(1);
+}
+function diffColor(v) {
+  if (v == null) return "var(--text-dim)";
+  if (Math.abs(v) < 0.5) return "var(--text-muted)";
+  return v > 0 ? "var(--green)" : "var(--red)";
+}
+function diffBarWidth(v) {
+  return Math.min(Math.abs(v || 0) * 12, 100) + "%";
+}
+
+function renderGauge(diff) {
+  // Semicircle gauge: left = negative (red), center = neutral, right = positive (green)
+  // diff typically ranges -5 to +5, clamp to that
+  const clamped = Math.max(-5, Math.min(5, diff || 0));
+  // Map to angle: -5 -> -90deg (left), 0 -> 0 (center), +5 -> 90deg (right)
+  const angle = (clamped / 5) * 90;
+
+  // SVG arc gauge — viewBox centered so arc is at bottom
+  const cx = 45, cy = 44, r = 34;
+  // Track arc (180 degrees, left to right)
+  const trackStart = polarToCart(cx, cy, r, -180);
+  const trackEnd = polarToCart(cx, cy, r, 0);
+
+  // Gradient stops for the arc track: red -> yellow -> green
+  const gradId = "g" + Math.random().toString(36).slice(2, 8);
+
+  // Needle endpoint
+  // -90deg = left (9 o'clock), 0 = top (12), 90 = right (3 o'clock)
+  // In SVG arc coords: -180 = left, -90 = top center, 0 = right
+  const needleAngle = -90 + angle; // map: diff -5 -> -180, 0 -> -90, +5 -> 0
+  const needleTip = polarToCart(cx, cy, r - 4, needleAngle);
+  const needleBase1 = polarToCart(cx, cy, 3, needleAngle - 90);
+  const needleBase2 = polarToCart(cx, cy, 3, needleAngle + 90);
+
+  return `<div class="gauge-wrap">
+    <svg viewBox="0 0 90 50" width="90" height="50">
+      <defs>
+        <linearGradient id="${gradId}" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#f87171"/>
+          <stop offset="35%" stop-color="#f87171"/>
+          <stop offset="50%" stop-color="#fbbf24"/>
+          <stop offset="65%" stop-color="#34d399"/>
+          <stop offset="100%" stop-color="#34d399"/>
+        </linearGradient>
+      </defs>
+      <!-- Track -->
+      <path d="M ${trackStart.x} ${trackStart.y} A ${r} ${r} 0 0 1 ${trackEnd.x} ${trackEnd.y}"
+            fill="none" stroke="url(#${gradId})" stroke-width="5" stroke-linecap="round" opacity="0.25"/>
+      <!-- Filled arc from center to needle position -->
+      ${renderFilledArc(cx, cy, r, needleAngle, gradId)}
+      <!-- Tick marks -->
+      ${renderTicks(cx, cy, r)}
+      <!-- Needle -->
+      <polygon points="${needleBase1.x},${needleBase1.y} ${needleTip.x},${needleTip.y} ${needleBase2.x},${needleBase2.y}"
+               fill="var(--text)" opacity="0.9"/>
+      <!-- Center dot -->
+      <circle cx="${cx}" cy="${cy}" r="3.5" fill="var(--surface)" stroke="var(--text-muted)" stroke-width="1"/>
+    </svg>
+  </div>`;
+}
+
+function polarToCart(cx, cy, r, angleDeg) {
+  const rad = (angleDeg * Math.PI) / 180;
+  return { x: cx + r * Math.cos(rad), y: cy + r * Math.sin(rad) };
+}
+
+function renderFilledArc(cx, cy, r, needleAngle, gradId) {
+  // Draw the bright arc from center (-90) to the needle position
+  const startAngle = -90;
+  const sweep = needleAngle - startAngle;
+  if (Math.abs(sweep) < 1) return "";
+
+  const fromAngle = Math.min(startAngle, needleAngle);
+  const toAngle = Math.max(startAngle, needleAngle);
+  const start = polarToCart(cx, cy, r, fromAngle);
+  const end = polarToCart(cx, cy, r, toAngle);
+  const largeArc = (toAngle - fromAngle) > 180 ? 1 : 0;
+
+  return `<path d="M ${start.x} ${start.y} A ${r} ${r} 0 ${largeArc} 1 ${end.x} ${end.y}"
+            fill="none" stroke="url(#${gradId})" stroke-width="5" stroke-linecap="round" opacity="0.8"/>`;
+}
+
+function renderTicks(cx, cy, r) {
+  let ticks = "";
+  // 5 ticks at -180, -135, -90, -45, 0 degrees
+  for (let i = 0; i <= 4; i++) {
+    const angle = -180 + i * 45;
+    const outer = polarToCart(cx, cy, r + 3, angle);
+    const inner = polarToCart(cx, cy, r - (i === 2 ? 2 : 0), angle);
+    const opacity = i === 2 ? 0.4 : 0.15;
+    ticks += `<line x1="${outer.x}" y1="${outer.y}" x2="${inner.x}" y2="${inner.y}"
+               stroke="var(--text)" stroke-width="${i === 2 ? 1.5 : 0.8}" opacity="${opacity}"/>`;
+  }
+  return ticks;
+}
+
+function parseDate(dateStr) {
+  // "Thursday, March 12, 2026" or "2026-03-13 19:40:00"
+  return new Date(dateStr);
+}
+function formatDay(dateStr) {
+  // Dates from AFLUA are like "Thursday, March 12, 2026" — extract day portion
+  const m = dateStr.match(/^(\w+,\s+\w+\s+\d+)/);
+  if (m) return m[1];
+  // Fallback for ISO dates from Squiggle
+  try {
+    const d = parseDate(dateStr);
+    return d.toLocaleDateString("en-AU", { weekday:"long", month:"long", day:"numeric" });
+  } catch { return dateStr; }
+}
+function formatTime(timeStr) {
+  if (!timeStr) return "";
+  // "7:30pm Local" -> "7:30pm"
+  return timeStr.replace(/\s*Local\s*/i, "").trim();
+}
+
+// ── Render ──
+function renderApp(fixtures, appointments) {
+  const app = document.getElementById("app");
+  const roundInfo = document.getElementById("roundInfo");
+
+  if (!fixtures || fixtures.length === 0) {
+    app.innerHTML = '<div class="error-msg">No fixture data available.<br>Run: python pipeline.py --round 1</div>';
+    return;
+  }
+
+  // Build appointment lookup for boundary/goal umpires
+  const apptMap = {};
+  (appointments || []).forEach(a => {
+    apptMap[a.home_team + "|" + a.away_team] = a;
+  });
+
+  // Detect round from date
+  roundInfo.textContent = "Round " + (fixtures[0].round || "1") + " Fixtures";
+
+  // Group by day
+  const days = {};
+  fixtures.forEach(f => {
+    const day = formatDay(f.date);
+    if (!days[day]) days[day] = [];
+    days[day].push(f);
+  });
+
+  let html = "";
+  for (const [day, games] of Object.entries(days)) {
+    html += `<div class="day-header">${esc(day)}</div>`;
+    games.forEach((f, i) => {
+      const appt = apptMap[f.home_team + "|" + f.away_team];
+      html += renderFixtureCard(f, appt, day + i);
+    });
+  }
+
+  app.innerHTML = html;
+
+  // Attach click handlers
+  document.querySelectorAll(".fixture-header").forEach(el => {
+    el.addEventListener("click", () => {
+      el.closest(".fixture-card").classList.toggle("expanded");
+    });
+  });
+}
+
+function renderFixtureCard(fixture, appointment, id) {
+  const home = teamInfo(fixture.home_team);
+  const away = teamInfo(fixture.away_team);
+  const appt = appointment || {};
+  const time = formatTime(appt.time || "");
+  const venue = fixture.venue || appt.venue || "";
+
+  const reports = fixture.umpire_reports || [];
+
+  return `
+  <div class="fixture-card" id="card-${id}">
+    <div class="fixture-header" style="border-left: 4px solid ${home.primary}">
+      <div class="team-matchup">
+        <span class="team-badge" style="background:${home.primary};color:${home.secondary}">${home.abbr}</span>
+        <span class="team-name">${esc(fixture.home_team)}</span>
+        <span class="vs-label">v</span>
+        <span class="team-name">${esc(fixture.away_team)}</span>
+        <span class="team-badge" style="background:${away.primary};color:${away.secondary}">${away.abbr}</span>
+      </div>
+      <div class="fixture-meta">${esc(venue)}<br>${esc(time)}</div>
+      <span class="chevron">&#9662;</span>
+    </div>
+    <div class="fixture-detail">
+      <div class="detail-inner">
+        ${renderCrewSummary(reports, fixture.home_team, fixture.away_team)}
+        <div class="section-label">Individual Umpires</div>
+        ${reports.map(r => renderUmpireCard(r, fixture.home_team, fixture.away_team)).join("")}
+        ${renderOtherUmpires(appt)}
+        ${renderMethodology()}
+      </div>
+    </div>
+  </div>`;
+}
+
+function renderUmpireCard(report, homeTeam, awayTeam) {
+  const home = teamInfo(homeTeam);
+  const away = teamInfo(awayTeam);
+
+  let badge = "";
+  if (report.total_games === 0) {
+    badge = '<span class="badge badge-new">Debut</span>';
+  } else if (!report.is_reliable) {
+    badge = '<span class="badge badge-warn">Low sample</span>';
+  }
+
+  return `
+  <div class="umpire-card">
+    <div class="umpire-name-row">
+      <div>
+        <span class="umpire-name">${esc(report.umpire)}</span>${badge}
+      </div>
+      <span class="umpire-games">${report.total_games} game${report.total_games !== 1 ? "s" : ""}</span>
+    </div>
+    <div class="team-stats">
+      ${renderTeamStat(report.home_record, homeTeam, home)}
+      ${renderTeamStat(report.away_record, awayTeam, away)}
+    </div>
+  </div>`;
+}
+
+function renderTeamStat(record, teamName, teamStyle) {
+  if (!record) {
+    return `
+    <div class="team-stat-block">
+      <div class="team-stat-label" style="color:${teamStyle.primary}">${esc(teamName)}</div>
+      <div class="no-history">No history</div>
+    </div>`;
+  }
+
+  const diff = record.avg_differential;
+  const reliable = record.is_reliable;
+  const opacity = reliable ? "1" : "0.65";
+  const star = reliable ? "" : " *";
+
+  return `
+  <div class="team-stat-block" style="opacity:${opacity}">
+    <div class="team-stat-label" style="color:${teamStyle.primary}">${esc(teamName)}${star}</div>
+    <div class="stat-row">
+      <span class="stat-label">FK For</span>
+      <span class="stat-value">${record.avg_frees_for.toFixed(1)}</span>
+    </div>
+    <div class="stat-row">
+      <span class="stat-label">FK Against</span>
+      <span class="stat-value">${record.avg_frees_against.toFixed(1)}</span>
+    </div>
+    <div class="diff-row diff-row-bar">
+      <span class="diff-value" style="color:${diffColor(diff)}">${formatDiff(diff)}</span>
+      <div class="diff-bar-wrap">
+        <div class="diff-bar" style="width:${diffBarWidth(diff)};background:${diffColor(diff)}"></div>
+      </div>
+    </div>
+    ${!reliable ? `<div style="font-size:0.68rem;color:var(--amber);margin-top:4px">${record.games} game${record.games !== 1 ? "s" : ""} only</div>` : ""}
+  </div>`;
+}
+
+function renderTeamStatGauge(record, teamName, teamStyle) {
+  if (!record) return renderTeamStat(null, teamName, teamStyle);
+  const diff = record.avg_differential;
+  return `
+  <div class="team-stat-block">
+    <div class="team-stat-label" style="color:${teamStyle.primary}">${esc(teamName)}</div>
+    <div class="stat-row">
+      <span class="stat-label">FK For</span>
+      <span class="stat-value">${record.avg_frees_for.toFixed(1)}</span>
+    </div>
+    <div class="stat-row">
+      <span class="stat-label">FK Against</span>
+      <span class="stat-value">${record.avg_frees_against.toFixed(1)}</span>
+    </div>
+    <div class="diff-row diff-row-gauge">
+      ${renderGauge(diff)}
+      <span class="diff-value" style="color:${diffColor(diff)}">${formatDiff(diff)}</span>
+    </div>
+  </div>`;
+}
+
+function renderCrewSummary(reports, homeTeam, awayTeam) {
+  if (reports.length === 0) return "";
+
+  const homeRecs = reports.map(r => r.home_record).filter(Boolean);
+  const awayRecs = reports.map(r => r.away_record).filter(Boolean);
+
+  function avg(recs, key) {
+    if (recs.length === 0) return null;
+    return recs.reduce((s, r) => s + r[key], 0) / recs.length;
+  }
+
+  const homeAvg = {
+    avg_frees_for: avg(homeRecs, "avg_frees_for"),
+    avg_frees_against: avg(homeRecs, "avg_frees_against"),
+    avg_differential: avg(homeRecs, "avg_differential"),
+    is_reliable: true,
+    games: homeRecs.reduce((s, r) => s + r.games, 0),
+  };
+  const awayAvg = {
+    avg_frees_for: avg(awayRecs, "avg_frees_for"),
+    avg_frees_against: avg(awayRecs, "avg_frees_against"),
+    avg_differential: avg(awayRecs, "avg_differential"),
+    is_reliable: true,
+    games: awayRecs.reduce((s, r) => s + r.games, 0),
+  };
+
+  const home = teamInfo(homeTeam);
+  const away = teamInfo(awayTeam);
+
+  return `
+  <div class="crew-summary">
+    <div class="umpire-name-row">
+      <span class="umpire-name">Crew Average</span>
+      <span class="umpire-games">${homeRecs.length + awayRecs.length > 0 ? "across " + reports.length + " umpires" : ""}</span>
+    </div>
+    <div class="team-stats">
+      ${homeAvg.avg_frees_for != null ? renderTeamStatGauge(homeAvg, homeTeam, home) : renderTeamStat(null, homeTeam, home)}
+      ${awayAvg.avg_frees_for != null ? renderTeamStatGauge(awayAvg, awayTeam, away) : renderTeamStat(null, awayTeam, away)}
+    </div>
+    ${renderLikertBar(homeAvg, awayAvg, homeTeam, awayTeam, home, away)}
+  </div>`;
+}
+
+function renderLikertBar(homeAvg, awayAvg, homeTeam, awayTeam, homeStyle, awayStyle) {
+  const homeDiff = homeAvg.avg_differential;
+  const awayDiff = awayAvg.avg_differential;
+  if (homeDiff == null && awayDiff == null) return "";
+
+  // Net game differential: positive = home team expected to get more frees
+  // Combine: home team's avg diff minus away team's avg diff
+  // (home diff is already "frees for home - frees against home" per umpire,
+  //  away diff is "frees for away - frees against away" per umpire)
+  // Multiply by 4 umpires to get estimated game-level net
+  const homeNet = (homeDiff || 0) * 4;
+  const awayNet = (awayDiff || 0) * 4;
+  const gameNet = homeNet - awayNet; // positive = home favoured
+
+  // Position on scale: 0% = far left (home +10), 50% = even, 100% = far right (away +10)
+  // Matches fixture header layout: home on left, away on right
+  const clamped = Math.max(-10, Math.min(10, gameNet));
+  const pct = 50 - (clamped / 10) * 45; // positive gameNet (home favoured) moves LEFT
+
+  const favoured = Math.abs(gameNet) < 0.5 ? null : (gameNet > 0 ? homeTeam : awayTeam);
+  const netAbs = Math.abs(gameNet).toFixed(1);
+
+  let netText;
+  if (!favoured) {
+    netText = "Even free kick outlook";
+  } else {
+    netText = `<strong>${esc(favoured)}</strong> expected to receive ~<strong>${netAbs}</strong> more frees`;
+  }
+
+  // Marker colour: use the favoured team's colour, or neutral
+  const markerBg = favoured
+    ? (gameNet > 0 ? homeStyle.primary : awayStyle.primary)
+    : "var(--text-dim)";
+  const markerText = favoured
+    ? (gameNet > 0 ? homeStyle.secondary : awayStyle.secondary)
+    : "var(--bg)";
+  const markerLabel = favoured
+    ? (gameNet > 0 ? homeStyle.abbr : awayStyle.abbr)
+    : "=";
+
+  return `
+  <div class="likert">
+    <div class="likert-label">Expected Free Kick Advantage</div>
+    <div class="likert-bar-outer">
+      <div class="likert-center"></div>
+      <div class="likert-marker" style="left:${pct}%;background:${markerBg};color:${markerText}">${markerLabel}</div>
+    </div>
+    <div class="likert-team-labels">
+      <span style="color:${homeStyle.primary}">${esc(homeTeam)}</span>
+      <span style="color:var(--text-dim)">Even</span>
+      <span style="color:${awayStyle.primary}">${esc(awayTeam)}</span>
+    </div>
+    <div class="likert-net">${netText}</div>
+  </div>`;
+}
+
+function renderOtherUmpires(appt) {
+  if (!appt) return "";
+  const parts = [];
+  if (appt.boundary_umpires && appt.boundary_umpires.length > 0)
+    parts.push("<strong>Boundary:</strong> " + appt.boundary_umpires.map(esc).join(", "));
+  if (appt.goal_umpires && appt.goal_umpires.length > 0)
+    parts.push("<strong>Goal:</strong> " + appt.goal_umpires.map(esc).join(", "));
+  if (parts.length === 0) return "";
+  return `<div class="other-umpires" style="margin-top:12px">${parts.join(" &nbsp;|&nbsp; ")}</div>`;
+}
+
+function renderMethodology() {
+  return `
+  <details class="methodology">
+    <summary>How these numbers work</summary>
+    <p>AFL Tables records total free kicks per game, not per umpire.</p>
+    <p><strong>Crew averaging:</strong> Each game has 4 field umpires sharing duties. We
+    divide game totals equally across the crew. Over many games with different crew
+    combinations, these averages reveal individual tendencies.</p>
+    <p><strong>Note:</strong> Free kick totals include Out of Bounds on the Full (OOBOTF),
+    which is an automatic non-discretionary call. No public data separates OOBOTF from other
+    free kicks. Since OOBOTF inflates both frees-for and frees-against roughly equally, the
+    <em>differential</em> remains a valid signal of umpire tendency.</p>
+    <p>Records marked * are based on fewer than 5 games and are less reliable. Differential
+    shows average frees for minus against &mdash; positive means the team tends to get more
+    free kicks in this umpire's games.</p>
+  </details>`;
+}
+
+function esc(s) {
+  if (!s) return "";
+  const el = document.createElement("span");
+  el.textContent = s;
+  return el.innerHTML;
+}
+
+// ── Init ──
+async function init() {
+  try {
+    const [fixtures, appointments] = await Promise.all([
+      fetch("/api/round").then(r => { if (!r.ok) throw new Error("No data"); return r.json(); }),
+      fetch("/api/appointments").then(r => r.json()).catch(() => []),
+    ]);
+    renderApp(fixtures, appointments);
+  } catch (e) {
+    document.getElementById("app").innerHTML =
+      `<div class="error-msg">Could not load data.<br>${esc(e.message)}<br><br>
+      <span style="color:var(--text-muted);font-size:0.85rem">
+      Run <code>python pipeline.py --round 1</code> to generate data.</span></div>`;
+  }
+}
+
+document.addEventListener("DOMContentLoaded", init);
+</script>
+</body>
+</html>
