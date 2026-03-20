@@ -45,6 +45,13 @@ class UmpireTeamRecord:
     # These store crew-averaged (divided by crew_size) cumulative values
     total_frees_for: float = 0.0
     total_frees_against: float = 0.0
+    # Home/away splits
+    home_games: int = 0
+    home_frees_for: float = 0.0
+    home_frees_against: float = 0.0
+    away_games: int = 0
+    away_frees_for: float = 0.0
+    away_frees_against: float = 0.0
 
     @property
     def avg_frees_for(self) -> float:
@@ -59,12 +66,26 @@ class UmpireTeamRecord:
         """Positive = team gets more frees than opponents on average."""
         return self.avg_frees_for - self.avg_frees_against
 
+    # Home split averages
+    @property
+    def avg_home_differential(self) -> float | None:
+        if not self.home_games:
+            return None
+        return (self.home_frees_for / self.home_games) - (self.home_frees_against / self.home_games)
+
+    # Away split averages
+    @property
+    def avg_away_differential(self) -> float | None:
+        if not self.away_games:
+            return None
+        return (self.away_frees_for / self.away_games) - (self.away_frees_against / self.away_games)
+
     @property
     def is_reliable(self) -> bool:
         return self.games >= MIN_RELIABLE_GAMES
 
     def to_dict(self) -> dict:
-        return {
+        d = {
             "team": self.team,
             "games": self.games,
             "total_frees_for": round(self.total_frees_for, 2),
@@ -73,7 +94,22 @@ class UmpireTeamRecord:
             "avg_frees_against": round(self.avg_frees_against, 1),
             "avg_differential": round(self.avg_differential, 1),
             "is_reliable": self.is_reliable,
+            "home_games": self.home_games,
+            "home_frees_for": round(self.home_frees_for, 2),
+            "home_frees_against": round(self.home_frees_against, 2),
+            "away_games": self.away_games,
+            "away_frees_for": round(self.away_frees_for, 2),
+            "away_frees_against": round(self.away_frees_against, 2),
         }
+        if self.home_games:
+            d["avg_home_ff"] = round(self.home_frees_for / self.home_games, 1)
+            d["avg_home_fa"] = round(self.home_frees_against / self.home_games, 1)
+            d["avg_home_differential"] = round(self.avg_home_differential, 1)
+        if self.away_games:
+            d["avg_away_ff"] = round(self.away_frees_for / self.away_games, 1)
+            d["avg_away_fa"] = round(self.away_frees_against / self.away_games, 1)
+            d["avg_away_differential"] = round(self.avg_away_differential, 1)
+        return d
 
 
 @dataclass
@@ -152,11 +188,17 @@ def build_umpire_profiles(matches: list[dict]) -> dict[str, UmpireProfile]:
             home_rec.games += 1
             home_rec.total_frees_for += h_ff
             home_rec.total_frees_against += h_fa
+            home_rec.home_games += 1
+            home_rec.home_frees_for += h_ff
+            home_rec.home_frees_against += h_fa
 
             away_rec = profile.record_for(away)
             away_rec.games += 1
             away_rec.total_frees_for += a_ff
             away_rec.total_frees_against += a_fa
+            away_rec.away_games += 1
+            away_rec.away_frees_for += a_ff
+            away_rec.away_frees_against += a_fa
 
     return profiles
 
@@ -249,6 +291,12 @@ def load_profiles(path: Path | None = None) -> dict[str, UmpireProfile]:
                 games=rec_data["games"],
                 total_frees_for=rec_data["total_frees_for"],
                 total_frees_against=rec_data["total_frees_against"],
+                home_games=rec_data.get("home_games", 0),
+                home_frees_for=rec_data.get("home_frees_for", 0.0),
+                home_frees_against=rec_data.get("home_frees_against", 0.0),
+                away_games=rec_data.get("away_games", 0),
+                away_frees_for=rec_data.get("away_frees_for", 0.0),
+                away_frees_against=rec_data.get("away_frees_against", 0.0),
             )
             profile.team_records[team] = rec
         profiles[name] = profile

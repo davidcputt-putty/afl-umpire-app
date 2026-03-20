@@ -274,6 +274,13 @@ header .subtitle {
   border-radius: 3px;
   transition: width 0.5s ease;
 }
+.split-row {
+  margin-top: 2px;
+  font-size: 0.72rem;
+  opacity: 0.8;
+  border-top: 1px dashed var(--border);
+  padding-top: 3px;
+}
 .gauge-wrap {
   position: relative;
   width: 100px;
@@ -757,13 +764,13 @@ function renderUmpireCard(report, homeTeam, awayTeam) {
       <span class="umpire-games">${report.total_games} game${report.total_games !== 1 ? "s" : ""}</span>
     </div>
     <div class="team-stats">
-      ${renderTeamStat(report.home_record, homeTeam, home)}
-      ${renderTeamStat(report.away_record, awayTeam, away)}
+      ${renderTeamStat(report.home_record, homeTeam, home, true)}
+      ${renderTeamStat(report.away_record, awayTeam, away, false)}
     </div>
   </div>`;
 }
 
-function renderTeamStat(record, teamName, teamStyle) {
+function renderTeamStat(record, teamName, teamStyle, isHome) {
   if (!record) {
     return `
     <div class="team-stat-block">
@@ -776,6 +783,16 @@ function renderTeamStat(record, teamName, teamStyle) {
   const reliable = record.is_reliable;
   const opacity = reliable ? "1" : "0.65";
   const star = reliable ? "" : " *";
+
+  // Show the relevant home/away split if available
+  let splitHtml = "";
+  if (isHome && record.avg_home_differential != null && record.home_games > 0) {
+    const hd = record.avg_home_differential;
+    splitHtml = `<div class="stat-row split-row"><span class="stat-label">At home (${record.home_games}g)</span><span class="stat-value" style="color:${diffColor(hd)}">${formatDiff(hd)}</span></div>`;
+  } else if (!isHome && record.avg_away_differential != null && record.away_games > 0) {
+    const ad = record.avg_away_differential;
+    splitHtml = `<div class="stat-row split-row"><span class="stat-label">Away (${record.away_games}g)</span><span class="stat-value" style="color:${diffColor(ad)}">${formatDiff(ad)}</span></div>`;
+  }
 
   return `
   <div class="team-stat-block" style="opacity:${opacity}">
@@ -794,6 +811,7 @@ function renderTeamStat(record, teamName, teamStyle) {
         <div class="diff-bar" style="width:${diffBarWidth(diff)};background:${diffColor(diff)}"></div>
       </div>
     </div>
+    ${splitHtml}
     ${!reliable ? `<div style="font-size:0.68rem;color:var(--amber);margin-top:4px">${record.games} game${record.games !== 1 ? "s" : ""} only</div>` : ""}
   </div>`;
 }
