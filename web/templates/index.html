@@ -425,6 +425,35 @@ header .subtitle {
   line-height: 1.6;
 }
 
+/* ── Round Tabs ── */
+.round-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 16px 20px;
+  flex-wrap: wrap;
+}
+.round-tab {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 6px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.round-tab:hover {
+  background: var(--card-hover);
+  color: var(--text);
+}
+.round-tab.active {
+  background: linear-gradient(135deg, #60a5fa, #a78bfa);
+  color: #fff;
+  border-color: transparent;
+}
+
 /* ── Footer ── */
 footer {
   text-align: center;
@@ -466,6 +495,8 @@ footer a:hover { text-decoration: underline; }
   <h1>AFL Umpire Tracker</h1>
   <div class="subtitle" id="roundInfo">Loading fixtures...</div>
 </header>
+
+<div class="round-tabs" id="roundTabs"></div>
 
 <div class="container" id="app">
   <div class="loading">
@@ -645,8 +676,6 @@ function renderApp(fixtures, appointments) {
   });
 
   // Detect round from date
-  roundInfo.textContent = "Round " + (fixtures[0].round || "1") + " Fixtures";
-
   // Group by day
   const days = {};
   fixtures.forEach(f => {
@@ -925,14 +954,44 @@ function esc(s) {
   return el.innerHTML;
 }
 
+// ── Round tabs ──
+function renderRoundTabs(rounds, activeRound) {
+  const container = document.getElementById("roundTabs");
+  container.innerHTML = rounds.map(r =>
+    `<button class="round-tab${r === activeRound ? " active" : ""}" data-round="${r}" onclick="loadRound(${r})">Round ${r}</button>`
+  ).join("");
+}
+
+async function loadRound(num) {
+  document.getElementById("app").innerHTML = '<div class="loading"><div class="spinner"></div>Loading...</div>';
+  try {
+    const data = await fetch(`/api/round/${num}`).then(r => { if (!r.ok) throw new Error("No data"); return r.json(); });
+    const appointments = await fetch("/api/appointments").then(r => r.json()).catch(() => []);
+    document.getElementById("roundInfo").textContent = "Round " + (data.round || num) + " Fixtures";
+    renderApp(data.fixtures, appointments);
+    document.querySelectorAll(".round-tab").forEach(t => t.classList.toggle("active", +t.dataset.round === num));
+  } catch (e) {
+    document.getElementById("app").innerHTML =
+      `<div class="error-msg">Could not load round ${num} data.<br>${esc(e.message)}</div>`;
+  }
+}
+
 // ── Init ──
 async function init() {
   try {
-    const [fixtures, appointments] = await Promise.all([
+    const [roundData, appointments, rounds] = await Promise.all([
       fetch("/api/round").then(r => { if (!r.ok) throw new Error("No data"); return r.json(); }),
       fetch("/api/appointments").then(r => r.json()).catch(() => []),
+      fetch("/api/rounds").then(r => r.json()).catch(() => []),
     ]);
-    renderApp(fixtures, appointments);
+
+    const currentRound = roundData.round || 1;
+    if (rounds.length > 1) {
+      renderRoundTabs(rounds, currentRound);
+    }
+
+    document.getElementById("roundInfo").textContent = "Round " + currentRound + " Fixtures";
+    renderApp(roundData.fixtures, appointments);
   } catch (e) {
     document.getElementById("app").innerHTML =
       `<div class="error-msg">Could not load data.<br>${esc(e.message)}<br><br>

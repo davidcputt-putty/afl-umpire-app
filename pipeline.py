@@ -164,9 +164,13 @@ def cmd_analyse_round(year: int, round_num: int, dataset: str = "3yr"):
             "umpire_reports": [r.to_dict() for r in reports],
         })
 
-    out = DATA_DIR / "round_analysis.json"
-    Path(out).write_text(json.dumps(all_reports, indent=2))
-    print(f"Saved analysis to {out}")
+    payload = {"round": round_num, "year": year, "fixtures": all_reports}
+    # Per-round archive
+    per_round = DATA_DIR / f"round_{round_num}_analysis.json"
+    per_round.write_text(json.dumps(payload, indent=2))
+    # Latest (used as default by frontend)
+    (DATA_DIR / "round_analysis.json").write_text(json.dumps(payload, indent=2))
+    print(f"Saved analysis to {per_round}")
     return all_reports
 
 

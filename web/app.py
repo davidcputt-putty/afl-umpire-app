@@ -8,6 +8,7 @@ Then visit http://localhost:5000
 
 import json
 import os
+import re
 from pathlib import Path
 
 from flask import Flask, jsonify, render_template
@@ -21,12 +22,27 @@ def index():
     return render_template("index.html")
 
 
+@app.route("/api/rounds")
+def api_rounds():
+    """List available round numbers."""
+    rounds = sorted(
+        int(m.group(1))
+        for f in DATA_DIR.glob("round_*_analysis.json")
+        if (m := re.match(r"round_(\d+)_analysis\.json", f.name))
+    )
+    return jsonify(rounds)
+
+
 @app.route("/api/round")
-def api_round():
+@app.route("/api/round/<int:num>")
+def api_round(num=None):
     """Fixtures with umpire analysis baked in."""
-    path = DATA_DIR / "round_analysis.json"
+    if num is not None:
+        path = DATA_DIR / f"round_{num}_analysis.json"
+    else:
+        path = DATA_DIR / "round_analysis.json"
     if not path.exists():
-        return jsonify({"error": "No round analysis data. Run: python pipeline.py --round 1"}), 404
+        return jsonify({"error": f"No analysis for round {num or 'latest'}. Run: python pipeline.py --round {num or 1}"}), 404
     data = json.loads(path.read_text())
     return jsonify(data)
 

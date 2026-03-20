@@ -1,0 +1,969 @@
+{
+  "round": 1,
+  "year": 2026,
+  "fixtures": [
+    {
+      "home_team": "Carlton",
+      "away_team": "Richmond",
+      "venue": "MCG",
+      "date": "Thursday, March 12, 2026",
+      "time": "7:30pm Local",
+      "umpire_reports": [
+        {
+          "umpire": "John Howorth",
+          "total_games": 69,
+          "is_reliable": true,
+          "home_team": "Carlton",
+          "away_team": "Richmond",
+          "home_record": {
+            "team": "Carlton",
+            "games": 10,
+            "total_frees_for": 44.25,
+            "total_frees_against": 37.0,
+            "avg_frees_for": 4.4,
+            "avg_frees_against": 3.7,
+            "avg_differential": 0.7,
+            "is_reliable": true
+          },
+          "away_record": {
+            "team": "Richmond",
+            "games": 7,
+            "total_frees_for": 25.88,
+            "total_frees_against": 27.12,
+            "avg_frees_for": 3.7,
+            "avg_frees_against": 3.9,
+            "avg_differential": -0.2,
+            "is_reliable": true
+          }
+        },
+        {
+          "umpire": "Nathan Toner",
+          "total_games": 71,
+          "is_reliable": true,
+          "home_team": "Carlton",
+          "away_team": "Richmond",
+          "home_record": {
+            "team": "Carlton",
+            "games": 6,
+            "total_frees_for": 26.25,
+            "total_frees_against": 23.5,
+            "avg_frees_for": 4.4,
+            "avg_frees_against": 3.9,
+            "avg_differential": 0.5,
+            "is_reliable": true
+          },
+          "away_record": {
+            "team": "Richmond",
+            "games": 5,
+            "total_frees_for": 16.38,
+            "total_frees_against": 16.88,
+            "avg_frees_for": 3.3,
+            "avg_frees_against": 3.4,
+            "avg_differential": -0.1,
+            "is_reliable": true
+          }
+        },
+        {
+          "umpire": "Jacob Mollison",
+          "total_games": 81,
+          "is_reliable": true,
+          "home_team": "Carlton",
+          "away_team": "Richmond",
+          "home_record": {
+            "team": "Carlton",
+            "games": 15,
+            "total_frees_for": 62.38,
+            "total_frees_against": 57.12,
+            "avg_frees_for": 4.2,
+            "avg_frees_against": 3.8,
+            "avg_differential": 0.4,
+            "is_reliable": true
+          },
+          "away_record": {
+            "team": "Richmond",
+            "games": 6,
+            "total_frees_for": 19.5,
+            "total_frees_against": 19.25,
+            "avg_frees_for": 3.2,
+            "avg_frees_against": 3.2,
+            "avg_differential": 0.0,
+            "is_reliable": true
+          }
+        },
+        {
+          "umpire": "Andrew Adair",
+          "total_games": 49,
+          "is_reliable": true,
+          "home_team": "Carlton",
+          "away_team": "Richmond",
+          "home_record": {
+            "team": "Carlton",
+            "games": 4,
+            "total_frees_for": 16.5,
+            "total_frees_against": 16.0,
+            "avg_frees_for": 4.1,
+            "avg_frees_against": 4.0,
+            "avg_differential": 0.1,
+            "is_reliable": false
+          },
+          "away_record": {
+            "team": "Richmond",
+            "games": 12,
+            "total_frees_for": 40.0,
+            "total_frees_against": 47.0,
+            "avg_frees_for": 3.3,
+            "avg_frees_against": 3.9,
+            "avg_differential": -0.6,
+            "is_reliable": true
+          }
+        }
+      ]
+    },
+    {
+      "home_team": "Essendon",
+      "away_team": "Hawthorn",
+      "venue": "MCG",
+      "date": "Friday, March 13, 2026",
+      "time": "7:40pm Local",
+      "umpire_reports": [
+        {
+          "umpire": "Daniel Johanson",
+          "total_games": 60,
+          "is_reliable": true,
+          "home_team": "Essendon",
+          "away_team": "Hawthorn",
+          "home_record": {
+            "team": "Essendon",
+            "games": 6,
+            "total_frees_for": 19.12,
+            "total_frees_against": 16.62,
+            "avg_frees_for": 3.2,
+            "avg_frees_against": 2.8,
+            "avg_differential": 0.4,
+            "is_reliable": true
+          },
+          "away_record": {
+            "team": "Hawthorn",
+            "games": 6,
+            "total_frees_for": 20.0,
+            "total_frees_against": 22.25,
+            "avg_frees_for": 3.3,
+            "avg_frees_against": 3.7,
+            "avg_differential": -0.4,
+            "is_reliable": true
+          }
+        },
+        {
+          "umpire": "Brendan Hosking",
+          "total_games": 79,
+          "is_reliable": true,
+          "home_team": "Essendon",
+          "away_team": "Hawthorn",
+          "home_record": {
+            "team": "Essendon",
+            "games": 11,
+            "total_frees_for": 35.5,
+            "total_frees_against": 29.5,
+            "avg_frees_for": 3.2,
+            "avg_frees_against": 2.7,
+            "avg_differential": 0.5,
+            "is_reliable": true
+          },
+          "away_record": {
+            "team": "Hawthorn",
+            "games": 10,
+            "total_frees_for": 43.5,
+            "total_frees_against": 41.0,
+            "avg_frees_for": 4.3,
+            "avg_frees_against": 4.1,
+            "avg_differential": 0.2,
+            "is_reliable": true
+          }
+        },
+        {
+          "umpire": "Simon Meredith",
+          "total_games": 87,
+          "is_reliable": true,
+          "home_team": "Essendon",
+          "away_team": "Hawthorn",
+          "home_record": {
+            "team": "Essendon",
+            "games": 6,
+            "total_frees_for": 20.12,
+            "total_frees_against": 16.62,
+            "avg_frees_for": 3.4,
+            "avg_frees_against": 2.8,
+            "avg_differential": 0.6,
+            "is_reliable": true
+          },
+          "away_record": {
+            "team": "Hawthorn",
+            "games": 7,
+            "total_frees_for": 28.38,
+            "total_frees_against": 29.12,
+            "avg_frees_for": 4.1,
+            "avg_frees_against": 4.2,
+            "avg_differential": -0.1,
+            "is_reliable": true
+          }
+        },
+        {
+          "umpire": "Martin Rodger",
+          "total_games": 69,
+          "is_reliable": true,
+          "home_team": "Essendon",
+          "away_team": "Hawthorn",
+          "home_record": {
+            "team": "Essendon",
+            "games": 9,
+            "total_frees_for": 32.12,
+            "total_frees_against": 33.38,
+            "avg_frees_for": 3.6,
+            "avg_frees_against": 3.7,
+            "avg_differential": -0.1,
+            "is_reliable": true
+          },
+          "away_record": {
+            "team": "Hawthorn",
+            "games": 14,
+            "total_frees_for": 52.25,
+            "total_frees_against": 47.0,
+            "avg_frees_for": 3.7,
+            "avg_frees_against": 3.4,
+            "avg_differential": 0.4,
+            "is_reliable": true
+          }
+        }
+      ]
+    },
+    {
+      "home_team": "Western Bulldogs",
+      "away_team": "Greater Western Sydney",
+      "venue": "Marvel Stadium",
+      "date": "Saturday, March 14, 2026",
+      "time": "1:15pm Local",
+      "umpire_reports": [
+        {
+          "umpire": "Alex Whetton",
+          "total_games": 66,
+          "is_reliable": true,
+          "home_team": "Western Bulldogs",
+          "away_team": "Greater Western Sydney",
+          "home_record": {
+            "team": "Western Bulldogs",
+            "games": 7,
+            "total_frees_for": 24.88,
+            "total_frees_against": 23.38,
+            "avg_frees_for": 3.6,
+            "avg_frees_against": 3.3,
+            "avg_differential": 0.2,
+            "is_reliable": true
+          },
+          "away_record": {
+            "team": "Greater Western Sydney",
+            "games": 10,
+            "total_frees_for": 30.25,
+            "total_frees_against": 39.0,
+            "avg_frees_for": 3.0,
+            "avg_frees_against": 3.9,
+            "avg_differential": -0.9,
+            "is_reliable": true
+          }
+        },
+        {
+          "umpire": "Craig Fleer",
+          "total_games": 68,
+          "is_reliable": true,
+          "home_team": "Western Bulldogs",
+          "away_team": "Greater Western Sydney",
+          "home_record": {
+            "team": "Western Bulldogs",
+            "games": 6,
+            "total_frees_for": 19.0,
+            "total_frees_against": 21.0,
+            "avg_frees_for": 3.2,
+            "avg_frees_against": 3.5,
+            "avg_differential": -0.3,
+            "is_reliable": true
+          },
+          "away_record": {
+            "team": "Greater Western Sydney",
+            "games": 7,
+            "total_frees_for": 24.12,
+            "total_frees_against": 24.12,
+            "avg_frees_for": 3.4,
+            "avg_frees_against": 3.4,
+            "avg_differential": 0.0,
+            "is_reliable": true
+          }
+        },
+        {
+          "umpire": "Brent Wallace",
+          "total_games": 69,
+          "is_reliable": true,
+          "home_team": "Western Bulldogs",
+          "away_team": "Greater Western Sydney",
+          "home_record": {
+            "team": "Western Bulldogs",
+            "games": 6,
+            "total_frees_for": 20.5,
+            "total_frees_against": 21.75,
+            "avg_frees_for": 3.4,
+            "avg_frees_against": 3.6,
+            "avg_differential": -0.2,
+            "is_reliable": true
+          },
+          "away_record": {
+            "team": "Greater Western Sydney",
+            "games": 8,
+            "total_frees_for": 28.25,
+            "total_frees_against": 33.75,
+            "avg_frees_for": 3.5,
+            "avg_frees_against": 4.2,
+            "avg_differential": -0.7,
+            "is_reliable": true
+          }
+        },
+        {
+          "umpire": "Peter Bailes",
+          "total_games": 48,
+          "is_reliable": true,
+          "home_team": "Western Bulldogs",
+          "away_team": "Greater Western Sydney",
+          "home_record": {
+            "team": "Western Bulldogs",
+            "games": 6,
+            "total_frees_for": 21.75,
+            "total_frees_against": 18.5,
+            "avg_frees_for": 3.6,
+            "avg_frees_against": 3.1,
+            "avg_differential": 0.5,
+            "is_reliable": true
+          },
+          "away_record": {
+            "team": "Greater Western Sydney",
+            "games": 9,
+            "total_frees_for": 22.38,
+            "total_frees_against": 30.38,
+            "avg_frees_for": 2.5,
+            "avg_frees_against": 3.4,
+            "avg_differential": -0.9,
+            "is_reliable": true
+          }
+        }
+      ]
+    },
+    {
+      "home_team": "Geelong",
+      "away_team": "Fremantle",
+      "venue": "GMHBA Stadium",
+      "date": "Saturday, March 14, 2026",
+      "time": "4:15pm Local",
+      "umpire_reports": [
+        {
+          "umpire": "Brett Rosebury",
+          "total_games": 77,
+          "is_reliable": true,
+          "home_team": "Geelong",
+          "away_team": "Fremantle",
+          "home_record": {
+            "team": "Geelong",
+            "games": 18,
+            "total_frees_for": 61.38,
+            "total_frees_against": 59.62,
+            "avg_frees_for": 3.4,
+            "avg_frees_against": 3.3,
+            "avg_differential": 0.1,
+            "is_reliable": true
+          },
+          "away_record": {
+            "team": "Fremantle",
+            "games": 12,
+            "total_frees_for": 45.0,
+            "total_frees_against": 48.75,
+            "avg_frees_for": 3.8,
+            "avg_frees_against": 4.1,
+            "avg_differential": -0.3,
+            "is_reliable": true
+          }
+        },
+        {
+          "umpire": "Robert O'Gorman",
+          "total_games": 0,
+          "is_reliable": false,
+          "home_team": "Geelong",
+          "away_team": "Fremantle",
+          "home_record": null,
+          "away_record": null
+        },
+        {
+          "umpire": "Nicholas Brown",
+          "total_games": 0,
+          "is_reliable": false,
+          "home_team": "Geelong",
+          "away_team": "Fremantle",
+          "home_record": null,
+          "away_record": null
+        },
+        {
+          "umpire": "Jamie Broadbent",
+          "total_games": 78,
+          "is_reliable": true,
+          "home_team": "Geelong",
+          "away_team": "Fremantle",
+          "home_record": {
+            "team": "Geelong",
+            "games": 14,
+            "total_frees_for": 47.75,
+            "total_frees_against": 43.5,
+            "avg_frees_for": 3.4,
+            "avg_frees_against": 3.1,
+            "avg_differential": 0.3,
+            "is_reliable": true
+          },
+          "away_record": {
+            "team": "Fremantle",
+            "games": 8,
+            "total_frees_for": 28.25,
+            "total_frees_against": 33.0,
+            "avg_frees_for": 3.5,
+            "avg_frees_against": 4.1,
+            "avg_differential": -0.6,
+            "is_reliable": true
+          }
+        }
+      ]
+    },
+    {
+      "home_team": "Sydney",
+      "away_team": "Brisbane Lions",
+      "venue": "SCG",
+      "date": "Saturday, March 14, 2026",
+      "time": "7:10pm Local",
+      "umpire_reports": [
+        {
+          "umpire": "Nick Foot",
+          "total_games": 77,
+          "is_reliable": true,
+          "home_team": "Sydney",
+          "away_team": "Brisbane Lions",
+          "home_record": {
+            "team": "Sydney",
+            "games": 9,
+            "total_frees_for": 24.88,
+            "total_frees_against": 32.12,
+            "avg_frees_for": 2.8,
+            "avg_frees_against": 3.6,
+            "avg_differential": -0.8,
+            "is_reliable": true
+          },
+          "away_record": {
+            "team": "Brisbane Lions",
+            "games": 15,
+            "total_frees_for": 57.38,
+            "total_frees_against": 49.12,
+            "avg_frees_for": 3.8,
+            "avg_frees_against": 3.3,
+            "avg_differential": 0.6,
+            "is_reliable": true
+          }
+        },
+        {
+          "umpire": "Cameron Jones",
+          "total_games": 40,
+          "is_reliable": true,
+          "home_team": "Sydney",
+          "away_team": "Brisbane Lions",
+          "home_record": {
+            "team": "Sydney",
+            "games": 4,
+            "total_frees_for": 12.5,
+            "total_frees_against": 18.5,
+            "avg_frees_for": 3.1,
+            "avg_frees_against": 4.6,
+            "avg_differential": -1.5,
+            "is_reliable": false
+          },
+          "away_record": {
+            "team": "Brisbane Lions",
+            "games": 4,
+            "total_frees_for": 13.75,
+            "total_frees_against": 9.5,
+            "avg_frees_for": 3.4,
+            "avg_frees_against": 2.4,
+            "avg_differential": 1.1,
+            "is_reliable": false
+          }
+        },
+        {
+          "umpire": "Curtis Deboy",
+          "total_games": 77,
+          "is_reliable": true,
+          "home_team": "Sydney",
+          "away_team": "Brisbane Lions",
+          "home_record": {
+            "team": "Sydney",
+            "games": 10,
+            "total_frees_for": 45.25,
+            "total_frees_against": 40.5,
+            "avg_frees_for": 4.5,
+            "avg_frees_against": 4.0,
+            "avg_differential": 0.5,
+            "is_reliable": true
+          },
+          "away_record": {
+            "team": "Brisbane Lions",
+            "games": 9,
+            "total_frees_for": 37.88,
+            "total_frees_against": 41.12,
+            "avg_frees_for": 4.2,
+            "avg_frees_against": 4.6,
+            "avg_differential": -0.4,
+            "is_reliable": true
+          }
+        },
+        {
+          "umpire": "Cameron Dore",
+          "total_games": 67,
+          "is_reliable": true,
+          "home_team": "Sydney",
+          "away_team": "Brisbane Lions",
+          "home_record": {
+            "team": "Sydney",
+            "games": 7,
+            "total_frees_for": 24.25,
+            "total_frees_against": 25.25,
+            "avg_frees_for": 3.5,
+            "avg_frees_against": 3.6,
+            "avg_differential": -0.1,
+            "is_reliable": true
+          },
+          "away_record": {
+            "team": "Brisbane Lions",
+            "games": 8,
+            "total_frees_for": 25.5,
+            "total_frees_against": 20.5,
+            "avg_frees_for": 3.2,
+            "avg_frees_against": 2.6,
+            "avg_differential": 0.6,
+            "is_reliable": true
+          }
+        }
+      ]
+    },
+    {
+      "home_team": "Collingwood",
+      "away_team": "Adelaide",
+      "venue": "MCG",
+      "date": "Saturday, March 14, 2026",
+      "time": "7:35pm Local",
+      "umpire_reports": [
+        {
+          "umpire": "Justin Power",
+          "total_games": 70,
+          "is_reliable": true,
+          "home_team": "Collingwood",
+          "away_team": "Adelaide",
+          "home_record": {
+            "team": "Collingwood",
+            "games": 10,
+            "total_frees_for": 34.25,
+            "total_frees_against": 36.0,
+            "avg_frees_for": 3.4,
+            "avg_frees_against": 3.6,
+            "avg_differential": -0.2,
+            "is_reliable": true
+          },
+          "away_record": {
+            "team": "Adelaide",
+            "games": 8,
+            "total_frees_for": 32.75,
+            "total_frees_against": 30.5,
+            "avg_frees_for": 4.1,
+            "avg_frees_against": 3.8,
+            "avg_differential": 0.3,
+            "is_reliable": true
+          }
+        },
+        {
+          "umpire": "Andrew Stephens",
+          "total_games": 83,
+          "is_reliable": true,
+          "home_team": "Collingwood",
+          "away_team": "Adelaide",
+          "home_record": {
+            "team": "Collingwood",
+            "games": 17,
+            "total_frees_for": 69.38,
+            "total_frees_against": 66.88,
+            "avg_frees_for": 4.1,
+            "avg_frees_against": 3.9,
+            "avg_differential": 0.1,
+            "is_reliable": true
+          },
+          "away_record": {
+            "team": "Adelaide",
+            "games": 6,
+            "total_frees_for": 24.25,
+            "total_frees_against": 21.0,
+            "avg_frees_for": 4.0,
+            "avg_frees_against": 3.5,
+            "avg_differential": 0.5,
+            "is_reliable": true
+          }
+        },
+        {
+          "umpire": "Hayden Meyer",
+          "total_games": 82,
+          "is_reliable": true,
+          "home_team": "Collingwood",
+          "away_team": "Adelaide",
+          "home_record": {
+            "team": "Collingwood",
+            "games": 18,
+            "total_frees_for": 65.75,
+            "total_frees_against": 62.5,
+            "avg_frees_for": 3.7,
+            "avg_frees_against": 3.5,
+            "avg_differential": 0.2,
+            "is_reliable": true
+          },
+          "away_record": {
+            "team": "Adelaide",
+            "games": 8,
+            "total_frees_for": 30.75,
+            "total_frees_against": 33.75,
+            "avg_frees_for": 3.8,
+            "avg_frees_against": 4.2,
+            "avg_differential": -0.4,
+            "is_reliable": true
+          }
+        },
+        {
+          "umpire": "Nathan Williamson",
+          "total_games": 82,
+          "is_reliable": true,
+          "home_team": "Collingwood",
+          "away_team": "Adelaide",
+          "home_record": {
+            "team": "Collingwood",
+            "games": 10,
+            "total_frees_for": 41.0,
+            "total_frees_against": 43.25,
+            "avg_frees_for": 4.1,
+            "avg_frees_against": 4.3,
+            "avg_differential": -0.2,
+            "is_reliable": true
+          },
+          "away_record": {
+            "team": "Adelaide",
+            "games": 10,
+            "total_frees_for": 45.5,
+            "total_frees_against": 41.0,
+            "avg_frees_for": 4.5,
+            "avg_frees_against": 4.1,
+            "avg_differential": 0.5,
+            "is_reliable": true
+          }
+        }
+      ]
+    },
+    {
+      "home_team": "North Melbourne",
+      "away_team": "Port Adelaide",
+      "venue": "Marvel Stadium",
+      "date": "Sunday, March 15, 2026",
+      "time": "1:10pm Local",
+      "umpire_reports": [
+        {
+          "umpire": "Mathew Nicholls",
+          "total_games": 59,
+          "is_reliable": true,
+          "home_team": "North Melbourne",
+          "away_team": "Port Adelaide",
+          "home_record": {
+            "team": "North Melbourne",
+            "games": 7,
+            "total_frees_for": 22.12,
+            "total_frees_against": 28.38,
+            "avg_frees_for": 3.2,
+            "avg_frees_against": 4.1,
+            "avg_differential": -0.9,
+            "is_reliable": true
+          },
+          "away_record": {
+            "team": "Port Adelaide",
+            "games": 4,
+            "total_frees_for": 12.25,
+            "total_frees_against": 17.0,
+            "avg_frees_for": 3.1,
+            "avg_frees_against": 4.2,
+            "avg_differential": -1.2,
+            "is_reliable": false
+          }
+        },
+        {
+          "umpire": "Tom Bryce",
+          "total_games": 36,
+          "is_reliable": true,
+          "home_team": "North Melbourne",
+          "away_team": "Port Adelaide",
+          "home_record": {
+            "team": "North Melbourne",
+            "games": 10,
+            "total_frees_for": 37.5,
+            "total_frees_against": 41.0,
+            "avg_frees_for": 3.8,
+            "avg_frees_against": 4.1,
+            "avg_differential": -0.3,
+            "is_reliable": true
+          },
+          "away_record": {
+            "team": "Port Adelaide",
+            "games": 2,
+            "total_frees_for": 7.25,
+            "total_frees_against": 6.75,
+            "avg_frees_for": 3.6,
+            "avg_frees_against": 3.4,
+            "avg_differential": 0.2,
+            "is_reliable": false
+          }
+        },
+        {
+          "umpire": "Joel Clamp",
+          "total_games": 0,
+          "is_reliable": false,
+          "home_team": "North Melbourne",
+          "away_team": "Port Adelaide",
+          "home_record": null,
+          "away_record": null
+        },
+        {
+          "umpire": "Eleni Tee",
+          "total_games": 35,
+          "is_reliable": true,
+          "home_team": "North Melbourne",
+          "away_team": "Port Adelaide",
+          "home_record": {
+            "team": "North Melbourne",
+            "games": 4,
+            "total_frees_for": 13.25,
+            "total_frees_against": 19.0,
+            "avg_frees_for": 3.3,
+            "avg_frees_against": 4.8,
+            "avg_differential": -1.4,
+            "is_reliable": false
+          },
+          "away_record": {
+            "team": "Port Adelaide",
+            "games": 5,
+            "total_frees_for": 22.38,
+            "total_frees_against": 17.62,
+            "avg_frees_for": 4.5,
+            "avg_frees_against": 3.5,
+            "avg_differential": 1.0,
+            "is_reliable": true
+          }
+        }
+      ]
+    },
+    {
+      "home_team": "Melbourne",
+      "away_team": "St Kilda",
+      "venue": "MCG",
+      "date": "Sunday, March 15, 2026",
+      "time": "3:15pm Local",
+      "umpire_reports": [
+        {
+          "umpire": "Nicholas Jankovskis",
+          "total_games": 0,
+          "is_reliable": false,
+          "home_team": "Melbourne",
+          "away_team": "St Kilda",
+          "home_record": null,
+          "away_record": null
+        },
+        {
+          "umpire": "Matt Stevic",
+          "total_games": 66,
+          "is_reliable": true,
+          "home_team": "Melbourne",
+          "away_team": "St Kilda",
+          "home_record": {
+            "team": "Melbourne",
+            "games": 11,
+            "total_frees_for": 42.62,
+            "total_frees_against": 34.12,
+            "avg_frees_for": 3.9,
+            "avg_frees_against": 3.1,
+            "avg_differential": 0.8,
+            "is_reliable": true
+          },
+          "away_record": {
+            "team": "St Kilda",
+            "games": 8,
+            "total_frees_for": 33.25,
+            "total_frees_against": 24.5,
+            "avg_frees_for": 4.2,
+            "avg_frees_against": 3.1,
+            "avg_differential": 1.1,
+            "is_reliable": true
+          }
+        },
+        {
+          "umpire": "Andrew Heffernan",
+          "total_games": 67,
+          "is_reliable": true,
+          "home_team": "Melbourne",
+          "away_team": "St Kilda",
+          "home_record": {
+            "team": "Melbourne",
+            "games": 9,
+            "total_frees_for": 38.88,
+            "total_frees_against": 28.38,
+            "avg_frees_for": 4.3,
+            "avg_frees_against": 3.2,
+            "avg_differential": 1.2,
+            "is_reliable": true
+          },
+          "away_record": {
+            "team": "St Kilda",
+            "games": 7,
+            "total_frees_for": 23.88,
+            "total_frees_against": 22.62,
+            "avg_frees_for": 3.4,
+            "avg_frees_against": 3.2,
+            "avg_differential": 0.2,
+            "is_reliable": true
+          }
+        },
+        {
+          "umpire": "Harrison Birch",
+          "total_games": 32,
+          "is_reliable": true,
+          "home_team": "Melbourne",
+          "away_team": "St Kilda",
+          "home_record": {
+            "team": "Melbourne",
+            "games": 3,
+            "total_frees_for": 8.88,
+            "total_frees_against": 7.88,
+            "avg_frees_for": 3.0,
+            "avg_frees_against": 2.6,
+            "avg_differential": 0.3,
+            "is_reliable": false
+          },
+          "away_record": {
+            "team": "St Kilda",
+            "games": 5,
+            "total_frees_for": 17.12,
+            "total_frees_against": 16.12,
+            "avg_frees_for": 3.4,
+            "avg_frees_against": 3.2,
+            "avg_differential": 0.2,
+            "is_reliable": true
+          }
+        }
+      ]
+    },
+    {
+      "home_team": "Gold Coast",
+      "away_team": "West Coast",
+      "venue": "People First Stadium",
+      "date": "Sunday, March 15, 2026",
+      "time": "5:10pm Local",
+      "umpire_reports": [
+        {
+          "umpire": "Leigh Fisher",
+          "total_games": 67,
+          "is_reliable": true,
+          "home_team": "Gold Coast",
+          "away_team": "West Coast",
+          "home_record": {
+            "team": "Gold Coast",
+            "games": 11,
+            "total_frees_for": 38.12,
+            "total_frees_against": 39.38,
+            "avg_frees_for": 3.5,
+            "avg_frees_against": 3.6,
+            "avg_differential": -0.1,
+            "is_reliable": true
+          },
+          "away_record": {
+            "team": "West Coast",
+            "games": 10,
+            "total_frees_for": 32.0,
+            "total_frees_against": 39.0,
+            "avg_frees_for": 3.2,
+            "avg_frees_against": 3.9,
+            "avg_differential": -0.7,
+            "is_reliable": true
+          }
+        },
+        {
+          "umpire": "Paul Rebeschini",
+          "total_games": 48,
+          "is_reliable": true,
+          "home_team": "Gold Coast",
+          "away_team": "West Coast",
+          "home_record": {
+            "team": "Gold Coast",
+            "games": 6,
+            "total_frees_for": 18.62,
+            "total_frees_against": 16.12,
+            "avg_frees_for": 3.1,
+            "avg_frees_against": 2.7,
+            "avg_differential": 0.4,
+            "is_reliable": true
+          },
+          "away_record": {
+            "team": "West Coast",
+            "games": 14,
+            "total_frees_for": 44.88,
+            "total_frees_against": 48.12,
+            "avg_frees_for": 3.2,
+            "avg_frees_against": 3.4,
+            "avg_differential": -0.2,
+            "is_reliable": true
+          }
+        },
+        {
+          "umpire": "Jordan Fry",
+          "total_games": 28,
+          "is_reliable": true,
+          "home_team": "Gold Coast",
+          "away_team": "West Coast",
+          "home_record": {
+            "team": "Gold Coast",
+            "games": 2,
+            "total_frees_for": 12.5,
+            "total_frees_against": 8.25,
+            "avg_frees_for": 6.2,
+            "avg_frees_against": 4.1,
+            "avg_differential": 2.1,
+            "is_reliable": false
+          },
+          "away_record": {
+            "team": "West Coast",
+            "games": 7,
+            "total_frees_for": 30.12,
+            "total_frees_against": 29.38,
+            "avg_frees_for": 4.3,
+            "avg_frees_against": 4.2,
+            "avg_differential": 0.1,
+            "is_reliable": true
+          }
+        },
+        {
+          "umpire": "Joseph O'Brien",
+          "total_games": 0,
+          "is_reliable": false,
+          "home_team": "Gold Coast",
+          "away_team": "West Coast",
+          "home_record": null,
+          "away_record": null
+        }
+      ]
+    }
+  ]
+}
